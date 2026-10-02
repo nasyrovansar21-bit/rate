@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rate us</title>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #031a3d, #0b3b8c);
+            color: #eaf3ff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .rating-card {
+            width: min(90%, 520px);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 18px;
+            padding: 32px 24px;
+            box-shadow: 0 18px 35px rgba(0, 0, 0, 0.25);
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0 0 16px;
+            font-size: 2.2rem;
+        }
+
+        p {
+            margin: 0 0 20px;
+            font-size: 1.1rem;
+        }
+
+        .stars {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 24px 0;
+        }
+
+        .star {
+            background: none;
+            border: none;
+            font-size: 2.5rem;
+            color: #d9e7ff;
+            cursor: pointer;
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+
+        .star:hover,
+        .star.active {
+            color: #ffd700;
+            transform: scale(1.08);
+        }
+
+        .submit-btn {
+            background-color: #ffffff;
+            color: #0b3b8c;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 28px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="rating-card">
+        <h1>Rate our site</h1>
+        <p>How was your experience?</p>
+
+        <div class="stars" aria-label="Rating stars">
+            <button class="star" type="button" data-value="1">★</button>
+            <button class="star" type="button" data-value="2">★</button>
+            <button class="star" type="button" data-value="3">★</button>
+            <button class="star" type="button" data-value="4">★</button>
+            <button class="star" type="button" data-value="5">★</button>
+        </div>
+
+        <button class="submit-btn" type="button">Submit rating</button>
+    </div>
+
+    <script>
+        const stars = document.querySelectorAll('.star');
+        const submitBtn = document.querySelector('.submit-btn');
+        let selectedRating = 0;
+
+        stars.forEach(star => {
+            star.addEventListener('click', () => {
+                selectedRating = Number(star.dataset.value);
+                stars.forEach(item => {
+                    item.classList.toggle('active', Number(item.dataset.value) <= selectedRating);
+                });
+            });
+        });
+
+        submitBtn.addEventListener('click', () => {
+            if (!selectedRating) {
+                alert('Please choose a rating first.');
+                return;
+            }
+
+            alert('Thank you for rating us with ' + selectedRating + ' stars!');
+        });
+    </script>
+</body>
+</html>
